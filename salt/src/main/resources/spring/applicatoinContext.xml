@@ -16,8 +16,8 @@
     <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <beans:property name="driverClassName" value="Altibase.jdbc.driver.AltibaseDriver" />
         <beans:property name="url" value="jdbc:Altibase://192.168.1.195:8801/mydb?encoding=UTF8" />
-        <beans:property name="username" value="mis" />
-        <beans:property name="password" value="alti2017" />
+        <beans:property name="username" value="xxx" />
+        <beans:property name="password" value="xxx" />
     </beans:bean>
 
 
