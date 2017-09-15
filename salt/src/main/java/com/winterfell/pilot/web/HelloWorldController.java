@@ -18,7 +18,13 @@ public class HelloWorldController {
 
     private static Logger logger = LoggerFactory.getLogger(HelloWorldController.class);
 
-    @RequestMapping("helloWorld")
+    @RequestMapping(method = RequestMethod.GET)
+    public String index(Model model) {
+        model.addAttribute("default", "I'm Default");
+        return "/helloWorld";
+    }
+
+    @RequestMapping("/helloWorld")
     public ModelAndView helloWorld() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("helloWorld");
@@ -26,20 +32,20 @@ public class HelloWorldController {
         return mav;
     }
 
-    @RequestMapping(value="step1/{id}", method=RequestMethod.GET)
+    @RequestMapping(value = "/step1/{id}", method = RequestMethod.GET)
     public String goStep1(@PathVariable String id, Model model) {
         model.addAttribute("id", id);
-        return "step";
+        return "/step";
     }
 
-    @RequestMapping("page/{var}")
+    @RequestMapping("/page/{var}")
     public String page(@PathVariable String var, Model model) {
         model.addAttribute("page", var);
         return var;
     }
     // 오류없이 나오긴 하지만 var가 미정변수라 그런지IDE 가 못 알아먹는다 (inspection x)
 
-    @RequestMapping("member/test1")
+    @RequestMapping("/member/test1")
     public String test(HttpServletRequest request, Model model) {
         String name = request.getParameter("name");
         String id   = request.getParameter("id");
@@ -47,17 +53,17 @@ public class HelloWorldController {
         model.addAttribute("name", name);
         model.addAttribute("id", id);
 
-        return "member/test1";
+        return "/member/test1";
     } // 무식한 방법
 
-    @RequestMapping("member/test2")
+    @RequestMapping("/member/test2")
     public String test2(@RequestParam("name") String name, @RequestParam("id") String id, Model model) {
         model.addAttribute("name", name);
         model.addAttribute("id", id);
-        return "member/test2";
+        return "/member/test2";
     } // 파라미터 받을 땐 이렇게
 
-    @RequestMapping("member/join")
+    @RequestMapping("/member/join")
     public String personInfo(Person person, Model model) {
         logger.info(person.toString());
 
@@ -68,9 +74,15 @@ public class HelloWorldController {
 
         model.addAttribute("person", person);  // this line ... model 빼도 오류 없이 된다. 그런데 jsp 에서 ${person.xx} 을 IDE가 못알아 먹음.
 
-        return "member/join";
+        return "/member/join";
     }
 
+
+    @RequestMapping("/hello/hello2")
+    public String index2(Model model) {
+        model.addAttribute("name", "Hi~ Salt of World");
+        return "/hello/hello2";
+    }
 
 
 }

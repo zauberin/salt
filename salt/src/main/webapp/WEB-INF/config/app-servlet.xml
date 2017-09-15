@@ -3,12 +3,13 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:beans="http://www.springframework.org/schema/beans"
              xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:mvc="http://www.springframework.org/schema/cache"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
                              http://www.springframework.org/schema/beans/spring-beans.xsd
                              http://www.springframework.org/schema/context
                              http://www.springframework.org/schema/context/spring-context-3.0.xsd
                              http://www.springframework.org/schema/mvc
-                             http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+                             http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
 
     <!--<context:component-scan base-package="egovframework">
@@ -19,18 +20,53 @@
 
     <context:component-scan base-package="com.winterfell.pilot" />
 
+    <mvc:annotation-driven />
+
+    <beans:bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <beans:property name="templateLoaderPath" value="/WEB-INF/views/freemarker/" />
+    </beans:bean>
+    <beans:bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <beans:property name="contentType" value="text/html; charset=utf-8" />
+        <beans:property name="cache" value="true" />
+        <beans:property name="prefix" value="" />
+        <beans:property name="suffix" value=".ftl" />
+        <beans:property name="order" value="1" />
+    </beans:bean>
+
+
     <beans:bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <beans:property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
         <beans:property name="prefix" value="/WEB-INF/views/jsp/" />
         <beans:property name="suffix" value=".jsp" />
+        <beans:property name="order" value="3" />
+    </beans:bean>
+
+    <beans:bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+        <beans:property name="prefix" value="/WEB-INF/views/thymeleaf/" />
+        <beans:property name="suffix" value=".html" />
+        <beans:property name="templateMode" value="HTML" />
+        <beans:property name="cacheable" value="true" />
+    </beans:bean>
+    <beans:bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <beans:property name="templateResolver" ref="templateResolver" />
+        <beans:property name="enableSpringELCompiler" value="true" />
+    </beans:bean>
+    <beans:bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <beans:property name="templateEngine" ref="templateEngine" />
+        <beans:property name="order" value="2" />
+        <beans:property name="viewNames" value="*.html,*.xhtml" />
     </beans:bean>
 
 
 
-    <!--<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0"/>-->
 
-    <!--<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1"
-          p:viewClass="org.springframework.web.servlet.view.JstlView"
-          p:prefix="/WEB-INF/views/jsp/" p:suffix=".jsp"/>-->
+    <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <beans:property name="driverClassName" value="Altibase.jdbc.driver.AltibaseDriver" />
+        <beans:property name="url" value="jdbc:Altibase://192.168.1.195:8801/mydb?encoding=UTF8" />
+        <beans:property name="username" value="" />
+        <beans:property name="password" value="" />
+    </beans:bean>
+
+
 
 </beans:beans>
