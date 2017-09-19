@@ -47,7 +47,7 @@
             <th>Make</th>
             <th>Model</th>
         </tr>
-    <#list model11["carList"] as car>
+    <#list model1["carList"] as car>
         <tr>
             <td>${car.make}</td>
             <td>${car.model}</td>

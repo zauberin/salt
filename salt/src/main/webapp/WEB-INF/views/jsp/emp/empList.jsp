@@ -13,16 +13,15 @@
     <title>Title</title>
 </head>
 <body>
-<table width="100%" cellpadding="8" class="table-line">
-    <tbody>
+<table border="1" style="border-collapse: collapse;">
     <c:forEach var="result" items="${empList}" varStatus="status">
         <tr>
             <td>${result.empNm}</td>
             <td>${result.empPos}</td>
+            <td>${result.deptNm}</td>
+            <td>${result.email}</td>
         </tr>
     </c:forEach>
-    </tbody>
-
 </table>
 </body>
 </html>

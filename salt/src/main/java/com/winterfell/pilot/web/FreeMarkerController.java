@@ -29,7 +29,7 @@ public class FreeMarkerController {
     }
 
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
-    public String init(@ModelAttribute("model11") ModelMap model) {
+    public String init(@ModelAttribute("model1") ModelMap model) {
         model.addAttribute("carList", carList);
         return "/fmview";
     }

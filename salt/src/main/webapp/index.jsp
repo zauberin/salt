@@ -11,6 +11,9 @@
     <li><a href="/hello/hello2">http://localhost:8080/hello/hello2</a></li>
     <li><a href="/cars">http://localhost:8080/cars</a></li>
     <li><a href="/empList">http://localhost:8080/empList</a></li>
+    <li><a href="/member/view?id=hongs">http://localhost:8080/member/view?id=hongs</a></li>
+    <li><a href="/member?id=hongs2">http://localhost:8080/member?id=hongs2</a></li>
+    <li><a href="/member/input">Member CRUD</a></li>
 </ul>
 
 </body>
