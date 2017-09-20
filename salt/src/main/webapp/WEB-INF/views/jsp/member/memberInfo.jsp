@@ -20,5 +20,8 @@
     <li>전화번호: ${memberInfo.phone}</li>
     <li>로그인횟수: ${memberInfo.loginCnt}</li>
 </ul>
+<br/>
+<button onclick="document.location.href='/member/mod?id=${memberInfo.id}';">수정</button>&nbsp;
+<button onclick="document.location.href='/member/list';">목록</button>
 </body>
 </html>

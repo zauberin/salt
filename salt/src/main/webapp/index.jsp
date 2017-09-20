@@ -13,7 +13,8 @@
     <li><a href="/empList">http://localhost:8080/empList</a></li>
     <li><a href="/member/view?id=hongs">http://localhost:8080/member/view?id=hongs</a></li>
     <li><a href="/member?id=hongs2">http://localhost:8080/member?id=hongs2</a></li>
-    <li><a href="/member/input">Member CRUD</a></li>
+    <li><a href="/member/input">Member CRUD (Input)</a></li>
+    <li><a href="/member/list">Member CRUD (List)</a></li>
 </ul>
 
 </body>

@@ -23,6 +23,8 @@
 
     <mvc:annotation-driven />
 
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+
     <beans:bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <beans:property name="templateLoaderPath" value="/WEB-INF/views/freemarker/" />
     </beans:bean>
