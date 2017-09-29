@@ -14,5 +14,13 @@
 <body>
     <c:out value="<xmp>" escapeXml="true">what</c:out>
     <h2>Hello2 : ${name}</h2>
+<br/>
+Image
+<br/>
+<img src="<c:url value='/resources/img/sign.jpg' />" />
+<img src="<c:url value='/img/sign.jpg' />" />
+<img src="/img/sign.jpg" />
+<img src="${pageContext.request.contextPath}/resources/img/sign.jpg" />
+<img src="${pageContext.request.contextPath}/img/sign.jpg" />
 </body>
 </html>

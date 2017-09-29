@@ -9,7 +9,7 @@
         </encoder>
     </appender>
     <!--<logger name="sonegy.slf4j.sample" level="INFO"></logger>-->
-    <logger name="org.springframework.context" level="DEBUG"></logger>
+    <logger name="org.springframework.context" level="DEBUG" />
     <root level="debug">
         <appender-ref ref="STDOUT" />
     </root>

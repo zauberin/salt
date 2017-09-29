@@ -15,6 +15,7 @@
     <li><a href="/member?id=hongs2">http://localhost:8080/member?id=hongs2</a></li>
     <li><a href="/member/input">Member CRUD (Input)</a></li>
     <li><a href="/member/list">Member CRUD (List)</a></li>
+    <li><a href="/thymeHello">Thymeleaf Template View</a></li>
 </ul>
 
 </body>

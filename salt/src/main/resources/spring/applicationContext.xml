@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:tx="http://www.springframework.org/schema/tx"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd
-        http://www.springframework.org/schema/tx">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <!--<context:component-scan base-package="com.winterfell" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>-->
 
 
-    <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-        <beans:property name="driverClassName" value="Altibase.jdbc.driver.AltibaseDriver" />
-        <beans:property name="url" value="jdbc:Altibase://localhost:8801/mydb?encoding=UTF8" />
-        <!--<beans:property name="url" value="jdbc:Altibase://192.168.1.195:8801/mydb?encoding=UTF8" />-->
-        <beans:property name="username" value="saltuser" />
-        <beans:property name="password" value="saltuser" />
-    </beans:bean>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="Altibase.jdbc.driver.AltibaseDriver" />
+        <property name="url" value="jdbc:Altibase://localhost:8801/mydb?encoding=UTF8" />
+        <property name="username" value="saltuser" />
+        <property name="password" value="saltuser" />
+    </bean>
 
     <!--<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -25,24 +30,54 @@
         <beans:property name="password" value="saltuser" />
     </beans:bean>-->
 
-    <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <beans:property name="dataSource" ref="dataSource" />
-        <beans:property name="configLocation" value="classpath:/mybatis-config.xml" />
-        <beans:property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml" />
-    </beans:bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:/mybatis-config.xml" />
+        <property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml" />
+    </bean>
 
-    <beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-        <beans:constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
-    </beans:bean>
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+        <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
 
 
-    <!--<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <beans:property name="dataSource" ref="dataSource" />
-    </beans:bean>
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 
-    <beans:bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
-    </beans:bean>
+    <!--<tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="add*" rollback-for="Exception" />
+            <tx:method name="mod*" rollback-for="Exception" />
+            <tx:method name="del*" rollback-for="Exception" />
+        </tx:attributes>
+    </tx:advice>
 
-    <tx:annotation-driven transaction-manager="transactionManager" />-->
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="serviceOperation" expression="execution(* com.winterfell.pilot.service..*.*(..))" />
+        <aop:advisor id="txAdviser" pointcut-ref="serviceOperation" advice-ref="txAdvice" />
+    </aop:config>-->
 
-</beans:beans>
+
+    
+
+    <!--<tx:annotation-driven />-->
+
+    <!--<tx:advice id="transactionAdvice">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED" rollback-for="Exception"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="requiredTx" expression="execution(* com.winterfell.pilot.service..*.*(..))" />
+        <aop:advisor advice-ref="transactionAdvice" pointcut-ref="requiredTx" />
+    </aop:config>-->
+
+
+    <!--<bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate"
+          p:transactionManager-ref="transactionManager" />-->
+
+    <!--<tx:annotation-driven transaction-manager="transactionManager" />-->
+
+</beans>

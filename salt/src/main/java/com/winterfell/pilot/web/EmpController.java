@@ -15,8 +15,12 @@ import java.sql.SQLException;
 @Controller
 public class EmpController {
 
+    private EmpService empService;
+
     @Autowired
-    EmpService empService;
+    public EmpController(EmpService empService) {
+        this.empService = empService;
+    }
 
     @RequestMapping(value = "/empList", method = RequestMethod.GET)
     public String getEmpList(@ModelAttribute EmpVO empVO, Model model) {

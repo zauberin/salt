@@ -1,9 +1,11 @@
 package com.winterfell.pilot.service;
 
 import com.winterfell.pilot.domain.MemberVO;
+import com.winterfell.pilot.repository.CommonDAO;
 import com.winterfell.pilot.repository.MemberDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +14,14 @@ import java.util.List;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-    @Autowired
     private MemberDAO memberDAO;
+    private CommonDAO commonDAO;
+
+    @Autowired
+    public MemberServiceImpl(MemberDAO memberDAO, CommonDAO commonDAO) {
+        this.memberDAO = memberDAO;
+        this.commonDAO = commonDAO;
+    }
 
     @Override
     public MemberVO getMemberInfo(String id) {
@@ -26,8 +34,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional
     public int addMember(MemberVO memberVO) {
-        return memberDAO.addMember(memberVO);
+
+        commonDAO.addAccessLog(memberVO.getId());
+        memberDAO.addMember(memberVO);
+
+        return 1;
     }
 
     @Override

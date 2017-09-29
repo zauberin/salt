@@ -68,6 +68,13 @@ public class MemberController {
         return "redirect:/member/list";
     }
 
+
+
+
+
+
+
+
     @ExceptionHandler({SQLException.class})
     public String databaseError(Model model) {
         // something to contain inform

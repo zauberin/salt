@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Hello Spring with Thymeleaf </title>
+
+</head>
+<body>
+<h1>Hello Spring with Thymeleaf .... Now</h1>
+<br/>
+<div th:text="${msg}">Sample Text</div>
+<br/>
+<ol>
+    <li><img src="http://support.altibase.com/images/Altibase_logo_new.png" /></li>
+    <li><img th:src="@{http://support.altibase.com/images/Altibase_logo_new.png}" /></li>
+    <li><img th:src="@{/resources/img/sign.jpg}" /></li>
+</ol>
+
+</body>
+</html>

@@ -11,8 +11,14 @@ import java.util.List;
 @Repository
 public class MemberDAOImpl implements MemberDAO {
 
-    @Autowired
+
     private SqlSession sqlSession;
+
+    @Autowired
+    public MemberDAOImpl(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+    }
+
 
     @Override
     public MemberVO getMemberInfo(String id) {
@@ -38,5 +44,7 @@ public class MemberDAOImpl implements MemberDAO {
     public int delMember(String id) {
         return sqlSession.delete("salt.mapper.memberMapper.delMember", id);
     }
+
+
 
 }
